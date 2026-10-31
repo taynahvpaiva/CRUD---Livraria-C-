@@ -134,3 +134,74 @@ void GerenciadorLivros::listarLivros() {
     }
 }
 
+//atualização dos livros
+void GerenciadorLivros::atualizarLivro() {
+    string nome;
+    cout << "Atualizacao do Livro: " << endl;
+    cout << "Digite o titulo: ";
+    cin.ignore();
+    getline(cin, nome);
+
+    int posicao = Pesquisar(nome);
+    if (posicao == -1) {
+        return;
+    }
+
+    int opcao;
+    cout << endl<<"O que deseja atualizar? " << endl;
+    cout << "1 - Titulo" << endl;
+    cout << "2 - Autor" << endl;
+    cout << "3 - Genero" << endl;
+    cout << "4 - Ano" << endl;
+    cout << "5 - Situacao de leitura" << endl;
+    cout << "Escolha uma opcao: ";
+
+    cin >> opcao;
+    string texto;
+    int numero;
+
+    switch (opcao) {
+        case 1:
+            cout << "Novo titulo: ";
+            cin.ignore();
+            getline(cin, texto);
+            livros[posicao]->setTitulo(texto);
+            break;
+
+        case 2:
+            cout << "Novo autor: ";
+            cin.ignore();
+            getline(cin, texto);
+            livros[posicao]->setAutor(texto);
+            break;
+
+        case 3:
+            cout << "Novo genero: ";
+            cin.ignore();
+            getline(cin, texto);
+            livros[posicao]->setGenero(texto);
+            break;
+
+        case 4:
+            cout << "Novo ano: ";
+            cin >> numero;
+            livros[posicao]->setAno(numero);
+            break;
+
+        case 5:
+            cout << "O livro ja foi lido? (sim/nao): ";
+            cin >> texto;
+            for (int i = 0; i < texto.length(); i++) {
+                texto[i] = tolower(texto[i]);
+            }
+            livros[posicao]->setLido(texto == "sim");
+            break;
+
+        default:
+            cout << "Opcao invalida!" << endl;
+            return;
+    }
+
+    cout << endl<<"Livro atualizado!" << endl;
+}
+
