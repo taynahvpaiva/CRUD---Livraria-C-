@@ -121,3 +121,16 @@ void GerenciadorLivros::cadastrarLivro() {
 
 }
 
+//listar os livros cadastrados
+void GerenciadorLivros::listarLivros() {
+    if (totalLivros == 0) {
+        cout <<endl << "Nenhum livro cadastrado!" << endl;
+        return;
+    }
+
+    for (int i = 0; i < totalLivros; i++) {
+        cout << "Livro " << i + 1 << ": " << endl;
+        livros[i]->exibirInfo();
+    }
+}
+
