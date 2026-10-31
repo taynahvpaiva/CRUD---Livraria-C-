@@ -376,3 +376,16 @@ void GerenciadorLivros::carregarDoArquivo() {
     arquivo.close();
 }
 
+//exibir menu
+void GerenciadorLivros::exibirMenu() {
+    cout << endl<<"Biblioteca: " << endl;
+    cout << "1 - Cadastrar livro" << endl;
+    cout << "2 - Listar livros" << endl;
+    cout << "3 - Atualizar livro" << endl;
+    cout << "4 - Excluir livro" << endl;
+    cout << "5 - Exibir resumo" << endl;
+    cout << "0 - Sair" << endl;
+
+    cout << "Escolha uma opcao: ";
+}
+
