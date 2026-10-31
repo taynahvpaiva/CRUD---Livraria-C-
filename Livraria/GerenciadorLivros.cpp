@@ -79,3 +79,45 @@ int GerenciadorLivros::Pesquisar(string nome) {
     return posicoes[escolha - 1];
 }
 
+//cadastro livro fisico ou ebook
+void GerenciadorLivros::cadastrarLivro() {
+
+    int tipo;
+
+    cout << endl << "Cadastrar Livro:" << endl;
+    cout << "1 - Livro fisico" << endl;
+    cout << "2 - EBook" << endl;
+    cout << "Escolha o tipo de livro: ";
+    cin >> tipo;
+
+    if (tipo != 1 && tipo != 2) {
+        cout << "Tipo invalido!" << endl;
+        return;
+    }
+
+    string titulo, autor, genero;
+    int ano;
+    cin.ignore();
+
+    cout << "Titulo: ";
+    getline(cin, titulo);
+
+    cout << "Autor: ";
+    getline(cin, autor);
+
+    cout << "Genero: ";
+    getline(cin, genero);
+
+    cout << "Ano de publicacao: ";
+    cin >> ano;
+
+    string resposta;
+    cout << "O livro ja foi lido? (sim/nao): ";
+    cin >> resposta;
+    for (int i = 0; i < resposta.length(); i++) {
+        resposta[i] = tolower(resposta[i]);
+    }
+    bool lido = (resposta == "sim");
+
+}
+
