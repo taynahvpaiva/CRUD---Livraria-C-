@@ -389,3 +389,41 @@ void GerenciadorLivros::exibirMenu() {
     cout << "Escolha uma opcao: ";
 }
 
+//escolha do menu
+bool GerenciadorLivros::processarMenu() {
+    int opcao;
+    exibirMenu();
+    cin >> opcao;
+
+    switch (opcao) {
+        case 1:
+            cadastrarLivro();
+            break;
+
+        case 2:
+            listarLivros();
+            break;
+
+        case 3:
+            atualizarLivro();
+            break;
+
+        case 4:
+            deletarLivro();
+            break;
+
+        case 5:
+            exibirResumo();
+            break;
+
+        case 0:
+            cout <<endl<< "Programa encerrado" << endl;
+            return false;
+
+        default:
+            cout <<endl <<"Opcao invalida! Tente novamente." << endl;
+            break;
+    }
+
+    return true;
+}
