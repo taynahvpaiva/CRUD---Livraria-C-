@@ -282,3 +282,97 @@ void GerenciadorLivros::salvarEmArquivo() {
     arquivo.close();
 }
 
+//carrega os livros pro arquivo
+void GerenciadorLivros::carregarDoArquivo() {
+
+    ifstream arquivo(nomeArquivo);
+
+    if (!arquivo.is_open()) {
+        return;
+    }
+
+    string linha;
+    while (getline(arquivo, linha)) {
+
+        stringstream dados(linha);
+        string tipo;
+        string campo;
+
+        getline(dados, tipo, ';');
+
+        getline(dados, campo, ';');
+        int id = stoi(campo);
+
+        string titulo;
+        getline(dados, titulo, ';');
+
+        string autor;
+        getline(dados, autor, ';');
+
+        string genero;
+        getline(dados, genero, ';');
+
+        getline(dados, campo, ';');
+        int ano = stoi(campo);
+
+        getline(dados, campo, ';');
+        bool lido = (stoi(campo) == 1);
+
+        getline(dados, campo, ';');
+        int dia = stoi(campo);
+
+        getline(dados, campo, ';');
+        int mes = stoi(campo);
+
+        getline(dados, campo, ';');
+        int anoCadastro = stoi(campo);
+
+        Data dataCadastro(dia, mes, anoCadastro);
+        if (totalLivros >= 100) {
+            cout << "Limite de livros atingido!" << endl;
+            break;
+        }
+
+        if (tipo == "FISICO") {
+            int numPaginas;
+            string editora;
+
+            getline(dados, campo, ';');
+            numPaginas = stoi(campo);
+
+            getline(dados, editora);
+
+            livros[totalLivros] = new LivroFisico(
+                id, titulo, autor, genero, ano, lido,
+                dataCadastro, numPaginas, editora
+            );
+
+        }
+        else if (tipo == "EBOOK") {
+
+            string formato;
+            double tamanhoArquivo;
+
+            getline(dados, formato, ';');
+
+            getline(dados, campo);
+            tamanhoArquivo = stod(campo);
+
+            livros[totalLivros] = new EBook(
+                id, titulo, autor, genero, ano, lido,
+                dataCadastro, formato, tamanhoArquivo
+            );
+        }
+        else {
+            continue;
+        }
+        totalLivros++;
+
+        if (id >= proximoId) {
+            proximoId = id + 1;
+        }
+    }
+
+    arquivo.close();
+}
+
