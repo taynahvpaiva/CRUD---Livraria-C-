@@ -205,3 +205,27 @@ void GerenciadorLivros::atualizarLivro() {
     cout << endl<<"Livro atualizado!" << endl;
 }
 
+//deletar um livro
+void GerenciadorLivros::deletarLivro() {
+    string nome;
+    cout << endl<<"Deletar um Livro: " << endl;
+    cout << "Digite o titulo ou inicio do titulo: ";
+
+    cin.ignore();
+    getline(cin, nome);
+
+    int posicao = Pesquisar(nome);
+    if (posicao == -1) {
+        return;
+    }
+    delete livros[posicao];
+
+    for (int i = posicao; i < totalLivros - 1; i++) {
+        livros[i] = livros[i + 1];
+    }
+
+    totalLivros--;
+    livros[totalLivros] = NULL;
+    cout << endl<<"Livro excluido!" << endl;
+}
+
