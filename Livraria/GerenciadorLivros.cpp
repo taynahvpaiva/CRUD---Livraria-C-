@@ -266,3 +266,19 @@ void GerenciadorLivros::exibirResumo() {
     cout << "EBooks: " << ebooks << endl;
 }
 
+//salvando os livros no arquivo
+void GerenciadorLivros::salvarEmArquivo() {
+    ofstream arquivo(nomeArquivo);
+
+    if (!arquivo.is_open()) {
+        cout << "Erro ao abrir o arquivo!" << endl;
+        return;
+    }
+
+    for (int i = 0; i < totalLivros; i++) {
+        arquivo << livros[i]->salvarEmLinha() << endl;
+    }
+
+    arquivo.close();
+}
+
