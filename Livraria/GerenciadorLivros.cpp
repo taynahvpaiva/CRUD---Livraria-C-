@@ -229,3 +229,40 @@ void GerenciadorLivros::deletarLivro() {
     cout << endl<<"Livro excluido!" << endl;
 }
 
+//resumo da biblioteca
+void GerenciadorLivros::exibirResumo() {
+    int lidos = 0;
+    int pendentes = 0;
+    int fisicos = 0;
+    int ebooks = 0;
+
+    for (int i = 0; i < totalLivros; i++) {
+        if (livros[i]->isLido()) {
+            lidos++;
+        }
+        else {
+            pendentes++;
+        }
+
+        if (livros[i]->getTipo() == "FISICO") {
+            fisicos++;
+        }
+        else if (livros[i]->getTipo() == "EBOOK") {
+            ebooks++;
+        }
+    }
+
+    double percentual = 0;
+    if (totalLivros > 0) {
+        percentual = (100.0 * lidos) / totalLivros;
+    }
+
+    cout <<endl<< "Resumo da biblioteca: " << endl;
+    cout << "Total de livros: " << totalLivros << endl;
+    cout << "Livros lidos: " << lidos << endl;
+    cout << "Livros pendentes: " << pendentes << endl;
+    cout << "Leitura concluida: " << percentual << "%" << endl;
+    cout << "Livros fisicos: " << fisicos << endl;
+    cout << "EBooks: " << ebooks << endl;
+}
+
