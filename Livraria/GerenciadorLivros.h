@@ -8,7 +8,7 @@ private:
     Livro* livros[100];
     int totalLivros;
     int proximoId;
-   string nomeArquivo;
+    string nomeArquivo;
 
 public:
     GerenciadorLivros();
@@ -17,6 +17,7 @@ public:
 
     void cadastrarLivro();
     void listarLivros();
+    void exibirLivro();
     void atualizarLivro();
     void deletarLivro();
     void exibirResumo();
@@ -25,5 +26,5 @@ public:
     void exibirMenu();
     bool processarMenu();
 
-     ~GerenciadorLivros();
+    ~GerenciadorLivros();
 };

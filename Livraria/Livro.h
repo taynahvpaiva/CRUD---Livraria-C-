@@ -3,6 +3,7 @@
 #include "Data.h"
 using namespace std;
 
+// classe base para os diferentes tipos de livros
 class Livro {
 
     private:
@@ -14,6 +15,7 @@ class Livro {
     public:
         Livro(int id, string titulo, string autor, string genero, int ano, bool lido, Data dataCadastro);
 
+        // destrutor virtual para permitir a destruição correta de objetos derivados
         virtual ~Livro();
 
         int getId() const;
@@ -32,9 +34,10 @@ class Livro {
         void setLido(bool lido);
         void setDataCadastro(Data dataCadastro);
 
-
+        // metodo virtual para exibir informações do livro, que pode ser sobrescrito por classes derivadas
         virtual void exibirInfo() const;
 
+        // metodos virtuais puros para salvar os dados do livro em uma linha e obter o tipo do livro, que devem ser implementados por classes derivadas
         virtual string salvarEmLinha() const = 0;
         virtual string getTipo() const = 0;
 

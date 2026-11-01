@@ -82,6 +82,11 @@ int GerenciadorLivros::Pesquisar(string nome) {
 //cadastro livro fisico ou ebook
 void GerenciadorLivros::cadastrarLivro() {
 
+    if (totalLivros >= 100) {
+        cout << "Limite de livros atingido!" << endl;
+        return;
+    }
+
     int tipo;
 
     cout << endl << "Cadastrar Livro:" << endl;
@@ -114,10 +119,51 @@ void GerenciadorLivros::cadastrarLivro() {
     string resposta;
     cout << "O livro ja foi lido? (sim/nao): ";
     cin >> resposta;
+
     for (int i = 0; i < resposta.length(); i++) {
         resposta[i] = tolower(resposta[i]);
     }
+
     bool lido = (resposta == "sim");
+
+    Data dataCadastro; 
+
+    if (tipo == 1) {
+        int numPaginas;
+        string editora;
+
+        cout << "Numero de paginas: ";
+        cin >> numPaginas;
+
+        cin.ignore();
+        cout << "Editora: ";
+        getline(cin, editora);
+
+        livros[totalLivros] = new LivroFisico(
+            proximoId, titulo, autor, genero, ano,
+            lido, dataCadastro, numPaginas, editora
+        );
+    }
+    else if (tipo == 2) {
+        string formato;
+        double tamanhoArquivo;
+
+        cout << "Formato do arquivo: ";
+        cin >> formato;
+
+        cout << "Tamanho do arquivo (em MB): ";
+        cin >> tamanhoArquivo;
+
+        livros[totalLivros] = new EBook(
+            proximoId, titulo, autor, genero, ano,
+            lido, dataCadastro, formato, tamanhoArquivo
+        );
+    }
+
+    totalLivros++;
+    proximoId++;
+
+    cout << endl << "Livro cadastrado com sucesso!" << endl;
 
 }
 
@@ -203,6 +249,26 @@ void GerenciadorLivros::atualizarLivro() {
     }
 
     cout << endl<<"Livro atualizado!" << endl;
+}
+
+// exibir um livro pesquisado
+void GerenciadorLivros::exibirLivro() {
+    string nome;
+
+    cout << "Exibir um Livro:" << endl;
+    cout << "Digite o titulo: ";
+
+    cin.ignore();
+    getline(cin, nome);
+
+    int posicao = Pesquisar(nome);
+
+    if (posicao == -1) {
+        return;
+    }
+
+    cout << endl << "Livro encontrado:" << endl;
+    livros[posicao]->exibirInfo();
 }
 
 //deletar um livro
@@ -294,6 +360,11 @@ void GerenciadorLivros::carregarDoArquivo() {
     string linha;
     while (getline(arquivo, linha)) {
 
+        if (totalLivros >= 100) {
+            cout << "Limite de livros atingido!" << endl;
+            break;
+        }
+
         stringstream dados(linha);
         string tipo;
         string campo;
@@ -328,11 +399,7 @@ void GerenciadorLivros::carregarDoArquivo() {
         int anoCadastro = stoi(campo);
 
         Data dataCadastro(dia, mes, anoCadastro);
-        if (totalLivros >= 100) {
-            cout << "Limite de livros atingido!" << endl;
-            break;
-        }
-
+        
         if (tipo == "FISICO") {
             int numPaginas;
             string editora;
@@ -381,9 +448,10 @@ void GerenciadorLivros::exibirMenu() {
     cout << endl<<"Biblioteca: " << endl;
     cout << "1 - Cadastrar livro" << endl;
     cout << "2 - Listar livros" << endl;
-    cout << "3 - Atualizar livro" << endl;
-    cout << "4 - Excluir livro" << endl;
-    cout << "5 - Exibir resumo" << endl;
+    cout << "3 - Exibir um livro" << endl;
+    cout << "4 - Atualizar livro" << endl;
+    cout << "5 - Excluir livro" << endl;
+    cout << "6 - Exibir resumo" << endl;
     cout << "0 - Sair" << endl;
 
     cout << "Escolha uma opcao: ";
@@ -403,16 +471,20 @@ bool GerenciadorLivros::processarMenu() {
         case 2:
             listarLivros();
             break;
-
-        case 3:
-            atualizarLivro();
+   
+        case 3: 
+            exibirLivro();
             break;
 
         case 4:
-            deletarLivro();
+            atualizarLivro();
             break;
 
         case 5:
+            deletarLivro();
+            break;
+
+        case 6:
             exibirResumo();
             break;
 
