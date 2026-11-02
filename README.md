@@ -56,10 +56,3 @@ g++ -std=c++17 *.cpp -o livraria
 .\livraria.exe
 ```
 
-## Objetivo
-
-O projeto foi desenvolvido como atividade prática de programação, com o intuito de aplicar conceitos de C++, principalmente classes, herança, encapsulamento e organização de código.
-
----
-
-Desenvolvido por Taynah Viana Paiva e colaboradores.
