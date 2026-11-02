@@ -14,7 +14,6 @@ Projeto desenvolvido em C++ para o gerenciamento de uma livraria. O sistema perm
 ## Tecnologias utilizadas
 
 - C++;
-- G++;
 - Git e GitHub;
 - Visual Studio Code.
 
